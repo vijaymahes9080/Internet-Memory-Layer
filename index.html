@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internet Memory Layer (IML) - Your Private Internet Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-green: #10b981;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Background Neon Glows */
+    .glow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .glow-bubble {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+    }
+    
+    .glow-bubble-1 { top: -10%; left: -10%; }
+    .glow-bubble-2 { top: 40%; right: -10%; background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%); }
+    .glow-bubble-3 { bottom: -10%; left: 20%; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(0,0,0,0) 70%); }
+
+    /* Header Nav */
+    header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .btn-github {
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .btn-github:hover {
+      background-color: var(--accent-blue);
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1000px;
+      margin: 80px auto;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-tagline {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #f0f6fc, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      font-weight: 300;
+    }
+
+    /* Interactive Demo Box */
+    .demo-container {
+      max-width: 800px;
+      margin: 0 auto 120px auto;
+      padding: 0 24px;
+    }
+
+    .terminal-box {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    .terminal-header {
+      background-color: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background-color: #ef4444; }
+    .dot-yellow { background-color: #f59e0b; }
+    .dot-green { background-color: #10b981; }
+
+    .terminal-title {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .terminal-body {
+      padding: 24px;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .query-box {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .query-input {
+      flex: 1;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .query-input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .btn-ask {
+      background-color: var(--accent-blue);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-ask:hover {
+      background-color: #2563eb;
+    }
+
+    .demo-output {
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 14px;
+      color: var(--text-muted);
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s;
+    }
+
+    .demo-output.loading {
+      color: var(--accent-blue);
+    }
+
+    .demo-output.success {
+      color: var(--text-main);
+      text-align: left;
+      display: block;
+      white-space: pre-line;
+      line-height: 1.7;
+    }
+
+    /* Core Innovations section */
+    .features-section {
+      max-width: 1200px;
+      margin: 0 auto 120px auto;
+      padding: 0 24px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .feature-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .feature-card:nth-child(even) {
+      direction: rtl;
+    }
+
+    .feature-card:nth-child(even) .feature-text {
+      direction: ltr;
+    }
+
+    .feature-text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .feature-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .feature-desc {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .feature-img-container {
+      background: rgba(17, 24, 39, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .feature-img-container:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Micro-animations */
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-container">
+    <div class="glow-bubble glow-bubble-1"></div>
+    <div class="glow-bubble glow-bubble-2"></div>
+    <div class="glow-bubble glow-bubble-3"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <img src="docs/images/graphrag_mockup.png" alt="IML Brain Logo" class="logo-img">
+      <div class="logo-text">IML</div>
+    </div>
+    <div class="nav-links">
+      <a href="docs/architecture.md" class="nav-link">Architecture</a>
+      <a href="docs/pipelines.md" class="nav-link">Pipelines</a>
+      <a href="docs/API_developer.md" class="nav-link">Developer API</a>
+    </div>
+    <a href="https://github.com/vijaymahes9080/Internet-Memory-Layer" class="btn-github">
+      <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-tagline">Local-First • AI-Native • Open Source</div>
+    <h1 class="hero-title"><span class="hero-gradient">The internet forgets.</span><br>Remember everything you read.</h1>
+    <p class="hero-desc">Internet Memory Layer is a personal internet brain. It acts as a passive chrome history, Obsidian, GraphRAG, and Notion AI, fully offline on your machine.</p>
+  </section>
+
+  <!-- Interactive Demo Box -->
+  <section class="demo-container">
+    <div class="terminal-box">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div class="terminal-title">iml-client --interactive</div>
+      </div>
+      <div class="terminal-body">
+        <div class="query-box">
+          <input type="text" id="demo-input" class="query-input" placeholder="Ask your memory: e.g. What frameworks compete with LlamaIndex?" value="What frameworks compete with LlamaIndex?">
+          <button id="demo-btn" class="btn-ask">Ask Brain</button>
+        </div>
+        <div id="demo-output" class="demo-output">
+          Press 'Ask Brain' to test GraphRAG vector & node search simulation.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Innovations Details -->
+  <section class="features-section">
+    <h2 class="section-title">Platform Innovations</h2>
+
+    <div class="feature-card">
+      <div class="feature-text">
+        <div class="feature-tag">Neural Querying</div>
+        <h3 class="feature-heading">Memory GraphRAG</h3>
+        <p class="feature-desc">By indexing text chunks in ChromaDB and connecting entity nodes in Neo4j, the unified context synthesis queries local Ollama models to return responses cited directly to your browser history logs.</p>
+      </div>
+      <div class="feature-img-container">
+        <img src="docs/images/graphrag_mockup.png" alt="GraphRAG Mockup" class="feature-img">
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-text">
+        <div class="feature-tag">Cognitive Profiles</div>
+        <h3 class="feature-heading">Concept DNA</h3>
+        <p class="feature-desc">Generates a vector fingerprint for every tracked topic cluster, mapping neural centrality configurations and calculating your knowledge velocity across domains over time.</p>
+      </div>
+      <div class="feature-img-container">
+        <img src="docs/images/concept_dna_mockup.png" alt="Concept DNA Mockup" class="feature-img">
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-text">
+        <div class="feature-tag">Replay Sessions</div>
+        <h3 class="feature-heading">Internet Time Machine</h3>
+        <p class="feature-desc">Records chronological snapshots of scroll actions and tab focuses, enabling slide-scrub capabilities to visually reconstruct your historical research journeys.</p>
+      </div>
+      <div class="feature-img-container">
+        <img src="docs/images/time_machine_mockup.png" alt="Time Machine Mockup" class="feature-img">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Internet Memory Layer. Open Source under the MIT License.</p>
+  </footer>
+
+  <script>
+    // Simulated GraphRAG UI Ingestion Responses
+    const demoBtn = document.getElementById("demo-btn");
+    const demoInput = document.getElementById("demo-input");
+    const demoOutput = document.getElementById("demo-output");
+
+    demoBtn.addEventListener("click", () => {
+      const query = demoInput.value.trim();
+      if(!query) return;
+
+      demoOutput.className = "demo-output loading";
+      demoOutput.innerText = "> Running Local GraphRAG search...\n> Querying ChromaDB Vector chunks...\n> Traversing Neo4j Subgraph connections...\n> Running Ollama inference...";
+
+      setTimeout(() => {
+        demoOutput.className = "demo-output success";
+        demoOutput.innerText = `[GraphRAG Response]
+Query: "${query}"
+
+Answer:
+LangChain and Haystack are primary alternatives to LlamaIndex. While LlamaIndex focuses heavily on data connections, indexes, and document structures, LangChain provides a more generalized chain-and-agent runtime framework.
+
+References:
+- github.com/langchain [Website] (Revisited 2 times)
+- github.com/deepset-ai/haystack [Repository] (Revisited 1 time)
+- (LlamaIndex) <-[:alternative_to]- (LangChain) [Neo4j Relation]`;
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
