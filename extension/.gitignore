@@ -1,0 +1,8 @@
+# Extension build artifacts
+node_modules/
+dist/
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
