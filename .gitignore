@@ -1,0 +1,32 @@
+# Python virtual environments & caches
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+
+# SQLite Databases & Local Vector databases
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+iml_metadata.db
+iml_chroma_db/
+
+# Credentials & environment configs
+.env
+
+# Javascript Node Modules & Compiled assets
+node_modules/
+dist/
+build/
+.next/
+out/
+.tauri/target/
+
+# OS metadata files
+.DS_Store
+Thumbs.db
