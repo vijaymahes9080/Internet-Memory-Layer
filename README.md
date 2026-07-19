@@ -1,16 +1,25 @@
 # Internet Memory Layer (IML)
 
-**Internet Memory Layer (IML)** is a production-grade, local-first, privacy-first platform that turns your browsing history into an queryable knowledge system. Instead of search engines that only retrieve pages, IML connects ideas across websites, constructs an interactive knowledge graph, and lets you query your browsing history years later as if it were a digital second brain.
+**Internet Memory Layer (IML)** is a production-grade, local-first, privacy-first platform that turns your browsing history into a queryable knowledge system. Instead of search engines that only retrieve pages, IML connects ideas across websites, constructs an interactive knowledge graph, and lets you query your browsing history years later as if it were a digital second brain.
 
 ---
 
 ## 🚀 Key Architectural Features & Innovations
 
-1. **Memory GraphRAG**: Answers generated directly from relationships between your personal entities (Concepts, Tech, companies, papers) in Neo4j and vector chunks in ChromaDB.
-2. **Concept DNA & Knowledge Genome**: Computes centrality indices and vector fingerprints to track how your interests and expertise evolve over time.
-3. **AI Curiosity Engine**: Automatically searches your graph for unconnected concepts that share highly similar text contents, highlighting "Knowledge Gaps" and designing flashcard quizzes.
-4. **Internet Time Machine**: Chronologically logs scroll offsets and active visual durations, allowing you to slide-scrub and replay research sessions.
-5. **Passive Ingestion Extension**: Background Chrome/Firefox Manifest V3 tracker running dwell-time visibility algorithms.
+### 1. Memory GraphRAG
+Answers are generated directly from semantic relationships between your personal entities (Concepts, Tech, companies, papers) in Neo4j and vector chunks in ChromaDB.
+
+![GraphRAG Conceptual Network Graph](docs/images/graphrag_mockup.png)
+
+### 2. Concept DNA & Knowledge Genome
+Computes centrality indices and vector fingerprints to track how your interests and expertise evolve over time.
+
+![Concept DNA Illustration](docs/images/concept_dna_mockup.png)
+
+### 3. Internet Time Machine
+Chronologically logs scroll offsets and active visual durations, allowing you to slide-scrub and replay research sessions.
+
+![Internet Time Machine UI Dashboard](docs/images/time_machine_mockup.png)
 
 ---
 
